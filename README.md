@@ -36,7 +36,7 @@ The app runs on `http://localhost:3000` and expects the backend at `http://local
 
 ## Docker
 
-The backend repository includes a `docker-compose.yml` that starts PostgreSQL, the backend, and this frontend together:
+The backend repository includes a `docker-compose.yml` that starts MongoDB, the backend, and this frontend together:
 
 ```bash
 cd ../election-monitor-backend
