@@ -1,11 +1,11 @@
 # VoteFlow Frontend
 
-Next.js frontend for the real-time election polling assignment.
+Next.js frontend for the VoteFlow real-time election polling system.
 
 ## Screens
 
 - `/` lets audience members sign up or log in, then vote once per account.
-- `/admin` lets the default admin log in, view live totals, party counts, and a horizontal vote chart.
+- `/admin` lets the default admin log in, view live totals, per-nominee counts, and a live pie chart.
 
 ## Local Setup
 
@@ -28,6 +28,27 @@ Next.js frontend for the real-time election polling assignment.
    ```
 
 The app runs on `http://localhost:3000` and expects the backend at `http://localhost:5000`.
+
+## Full App Setup
+
+This repository is the frontend. The API, database seed, vote-once enforcement, and Socket.IO server live in the sibling backend repository:
+
+```bash
+cd ../election-monitor-backend
+npm install
+cp .env.example .env
+npm run db:seed
+npm run dev
+```
+
+Then start this frontend in a second terminal:
+
+```bash
+cd ../election-monitor
+npm install
+cp .env.local.example .env.local
+npm run dev
+```
 
 ## Default Admin
 
