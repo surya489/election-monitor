@@ -4,8 +4,8 @@ Next.js frontend for the real-time election polling assignment.
 
 ## Screens
 
-- `/` lets audience members vote for one nominee per browser session.
-- `/admin` lets the default admin log in and view live totals, nominee counts, and a horizontal vote chart.
+- `/` lets audience members sign up or log in, then vote once per account.
+- `/admin` lets the default admin log in, view live totals, party counts, and a horizontal vote chart.
 
 ## Local Setup
 

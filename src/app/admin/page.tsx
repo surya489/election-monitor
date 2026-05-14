@@ -6,8 +6,12 @@ import { io, type Socket } from "socket.io-client";
 
 type ResultNominee = {
   id: string;
+  abbreviation: string;
   name: string;
+  fullName: string;
   party: string;
+  leader: string;
+  symbol: string;
   voteCount: number;
 };
 
@@ -178,7 +182,7 @@ export default function AdminPage() {
 
           <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="rounded-lg border border-[#d7d2c5] bg-white p-5">
-              <h2 className="text-xl font-semibold">Nominee Counts</h2>
+              <h2 className="text-xl font-semibold">Party Counts</h2>
               <div className="mt-5 divide-y divide-[#ede8dd]">
                 {results.nominees.map((nominee) => (
                   <div
@@ -186,8 +190,13 @@ export default function AdminPage() {
                     key={nominee.id}
                   >
                     <span>
-                      <span className="block font-semibold">{nominee.name}</span>
-                      <span className="text-sm text-[#666158]">{nominee.party}</span>
+                      <span className="block font-semibold">
+                        {nominee.abbreviation} - {nominee.symbol}
+                      </span>
+                      <span className="text-sm text-[#666158]">{nominee.fullName}</span>
+                      <span className="block text-xs font-medium uppercase text-[#7b4f22]">
+                        Leader: {nominee.leader}
+                      </span>
                     </span>
                     <strong className="text-2xl">{nominee.voteCount}</strong>
                   </div>
@@ -204,7 +213,7 @@ export default function AdminPage() {
                   return (
                     <div key={nominee.id}>
                       <div className="mb-2 flex items-center justify-between gap-4 text-sm">
-                        <span className="font-medium">{nominee.name}</span>
+                        <span className="font-medium">{nominee.abbreviation}</span>
                         <span>{nominee.voteCount}</span>
                       </div>
                       <div className="h-8 rounded-md bg-[#eee8dc]">
