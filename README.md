@@ -18,6 +18,42 @@ Next.js frontend for the VoteFlow real-time election polling system.
 - Tailwind CSS
 - Socket.IO client
 
+## Frontend Structure
+
+```text
+src/app
+  page.tsx              Audience voting page controller
+  admin/page.tsx        Admin dashboard controller
+  layout.tsx            App metadata, fonts, and root layout
+  globals.css           Tailwind import and global styles
+
+src/components/shared
+  AppShell.tsx          Shared page frame with nav and toast slot
+  PasswordInput.tsx     Reusable password input with visibility toggle
+  ToastMessage.tsx      Reusable toast notification
+  types.ts              Shared UI types
+
+src/components/voter
+  VoterAuthPanel.tsx    Signup/login panel
+  AuthModeTabs.tsx      Signup/login segmented control
+  BallotPanel.tsx       Authenticated voting experience
+  NomineeOption.tsx     Single selectable party option
+  VoteStatusCard.tsx    Current voting status summary
+  types.ts              Voter page types
+
+src/components/admin
+  AdminLogin.tsx        Admin login screen
+  AdminShell.tsx        Admin page frame
+  AdminDashboardHeader.tsx
+  ResultsSummary.tsx    Top result metric cards
+  StatCard.tsx          Reusable dashboard stat card
+  VoteShareChart.tsx    Pie chart and ranked result table
+  PasswordField.tsx     Admin labeled password field
+  types.ts              Admin page types
+```
+
+The page files keep state, API calls, and routing-level behavior. Components hold reusable UI so the screens stay easier to maintain.
+
 ## Important Packages
 
 - `next`, `react`, `react-dom`: application framework and UI rendering.
