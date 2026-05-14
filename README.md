@@ -2,62 +2,153 @@
 
 Next.js frontend for the VoteFlow real-time election polling system.
 
-## Screens
+## What This App Does
 
-- `/` lets audience members sign up or log in, then vote once per account.
-- `/admin` lets the default admin log in, view live totals, per-nominee counts, and a live pie chart.
+- Audience users can sign up, sign in, and vote for one party.
+- A user can vote only once. If they return later, the UI shows the party they already selected.
+- Admin users can sign in and view live vote totals.
+- The admin dashboard shows total votes, vote count for each nominee, and a live pie chart.
+- Toast notifications are used for login, logout, vote, and error states.
 
-## Local Setup
+## Tech Stack
 
-1. Install dependencies:
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Socket.IO client
 
-   ```bash
-   npm install
-   ```
+## Important Packages
 
-2. Create a local env file:
+- `next`, `react`, `react-dom`: application framework and UI rendering.
+- `socket.io-client`: receives live result updates on the admin dashboard.
+- `tailwindcss`: utility-first styling.
+- `eslint`, `typescript`: code quality and type checking.
 
-   ```bash
-   cp .env.local.example .env.local
-   ```
+## Required Before Running
 
-3. Start the frontend:
+- Node.js `20.9.0` or newer
+- npm
+- The backend API running on `http://localhost:5000`
+- MongoDB running for the backend
 
-   ```bash
-   npm run dev
-   ```
-
-The app runs on `http://localhost:3000` and expects the backend at `http://localhost:5000`.
-
-## Full App Setup
-
-This repository is the frontend. The API, database seed, vote-once enforcement, and Socket.IO server live in the sibling backend repository:
+## Clone And Install
 
 ```bash
-cd ../election-monitor-backend
+git clone <frontend-repo-url>
+cd election-monitor
+npm install
+```
+
+Create the frontend environment file:
+
+```bash
+cp .env.local.example .env.local
+```
+
+Default `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+## Run The Frontend
+
+```bash
+npm run dev
+```
+
+Open:
+
+- Audience voting page: `http://localhost:3000`
+- Admin dashboard: `http://localhost:3000/admin`
+
+## Full Local Setup With Backend
+
+Run the backend first in one terminal:
+
+```bash
+git clone <backend-repo-url>
+cd election-monitor-backend
 npm install
 cp .env.example .env
 npm run db:seed
 npm run dev
 ```
 
-Then start this frontend in a second terminal:
+Then run this frontend in a second terminal:
 
 ```bash
-cd ../election-monitor
+cd election-monitor
 npm install
 cp .env.local.example .env.local
 npm run dev
 ```
 
-## Default Admin
+## Admin Credentials
+
+The admin account is created by the backend seed script.
 
 - Email: `admin@voteflow.local`
 - Password: `admin123`
 
+The backend stores the admin password as a bcrypt hash. The plain password is only used during seeding and login verification.
+
+## Main User Flows
+
+Audience:
+
+1. Open `/`.
+2. Sign up or sign in.
+3. Select one nominee from DMK, ADMK, TVK, NTK, and PMK.
+4. Submit the vote.
+5. On future login, the app disables voting and highlights the selected party.
+
+Admin:
+
+1. Open `/admin`.
+2. Sign in with the seeded admin credentials.
+3. View total votes, party vote counts, and the pie chart.
+4. Keep the page open to receive real-time updates after audience votes.
+
+## Frontend Validation And Safety
+
+- Signup requires name, email, and a password of at least 6 characters.
+- Login requires email and password.
+- Voting requires a selected nominee.
+- The UI filters nominees to the approved five-party ballot.
+- Repeat voting is blocked in the UI when the backend reports an existing vote.
+- Backend validation still remains the source of truth for auth, nominee validity, and one-vote enforcement.
+
+## Available Scripts
+
+```bash
+npm run dev
+```
+
+Starts the development server.
+
+```bash
+npm run build
+```
+
+Builds the production app.
+
+```bash
+npm start
+```
+
+Starts the production server after a build.
+
+```bash
+npm run lint
+```
+
+Runs ESLint.
+
 ## Docker
 
-The backend repository includes a `docker-compose.yml` that starts MongoDB, the backend, and this frontend together:
+The backend repository includes a `docker-compose.yml` that starts MongoDB, the backend API, and this frontend together:
 
 ```bash
 cd ../election-monitor-backend
