@@ -88,6 +88,13 @@ Default `.env.local`:
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
+For a deployed frontend, set `NEXT_PUBLIC_API_URL` to the deployed backend URL,
+for example:
+
+```env
+NEXT_PUBLIC_API_URL=https://your-backend-service.onrender.com
+```
+
 ## Run The Frontend
 
 ```bash
@@ -190,3 +197,6 @@ The backend repository includes a `docker-compose.yml` that starts MongoDB, the 
 cd ../election-monitor-backend
 docker compose up --build
 ```
+
+For production deployments, make sure the frontend environment points to the
+public backend URL, not `localhost`.
